@@ -1,7 +1,6 @@
 from dsl import *
 
 
-
 def verify_007bbfb7(I: Grid) -> Grid:
     x0 = palette(I)
     x1 = other(x0, ZERO)
@@ -10263,7 +10262,6 @@ def verify_ec883f72(I: Grid) -> Grid:
     x3 = remove(x2, x1)
     x4 = argmax(x3, x0)
     x5 = other(x3, x4)
-    x6 = palette(I)
     x7 = lrcorner(x4)
     x8 = add(x7, UNITY)
     x9 = llcorner(x4)
@@ -10896,5 +10894,3 @@ def verify_ff805c23(I: Grid) -> Grid:
     x40 = ofcolor(I, x38)
     x41 = subgrid(x40, x39)
     return x41
-
-
