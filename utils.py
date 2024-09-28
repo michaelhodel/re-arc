@@ -35,7 +35,7 @@ def is_grid(
     """
     if not isinstance(grid, tuple):
         return False
-    if not len(grid) > 0:
+    if not 0 < len(grid) <= 30:
         return False
     if not all(isinstance(r, tuple) for r in grid):
         return False
