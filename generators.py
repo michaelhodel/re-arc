@@ -946,7 +946,7 @@ def generate_9dfd6313(diff_lb: float, diff_ub: float) -> dict:
     numcols = unifint(diff_lb, diff_ub, (1, min(7, mp)))
     colsch = sample(remcols, numcols)
     numpix = unifint(diff_lb, diff_ub, (1, len(cands)))
-    pixs = sample(cands, numpix)
+    pixs = sample(totuple(cands), numpix)
     for pix in pixs:
         gi = fill(gi, choice(colsch), {pix})
     go = mirrf(gi)
@@ -2545,7 +2545,7 @@ def generate_4c5c2cf0(diff_lb: float, diff_ub: float) -> dict:
     sg = canvas(bgc, (oh, ow))
     locc = (oh - 1, ow - 1)
     sg = fill(sg, cc, {locc})
-    reminds = remove(locc, asindices(sg))
+    reminds = totuple(remove(locc, asindices(sg)))
     ncells = unifint(diff_lb, diff_ub, (1, max(1, int((2/3) * oh * ow))))
     cells = sample(reminds, ncells)
     while ncells == 5 and shape(cells) == (3, 3):
@@ -4914,10 +4914,10 @@ def generate_4612dd53(diff_lb: float, diff_ub: float) -> dict:
         locc = randint(locj + 2, locj + iw - 3)
         br = connect((loci+1, locc), (loci + ih - 2, locc))
     c = canvas(bgc, (h, w))
-    crns = sample(corners(bx), 3)
+    crns = sample(totuple(corners(bx)), 3)
     onbx = totuple(crns)
     rembx = difference(bx, crns)
-    onbr = sample(br, 2)
+    onbr = sample(totuple(br), 2)
     rembr = difference(br, onbr)
     noccbx = unifint(diff_lb, diff_ub, (0, len(rembx)))
     noccbr = unifint(diff_lb, diff_ub, (0, len(rembr)))
@@ -5857,7 +5857,7 @@ def generate_4938f0c2(diff_lb: float, diff_ub: float) -> dict:
     sg = canvas(bgc, (oh, ow))
     locc = (oh - 1, ow - 1)
     sg = fill(sg, cc, {locc})
-    reminds = remove(locc, asindices(sg))
+    reminds = totuple(remove(locc, asindices(sg)))
     ncells = unifint(diff_lb, diff_ub, (1, max(1, int((2/3) * oh * ow))))
     cells = sample(reminds, ncells)
     while ncells == 4 and shape(cells) == (2, 2):
@@ -6117,7 +6117,7 @@ def generate_e50d258f(diff_lb: float, diff_ub: float) -> dict:
                 numred = unifint(diff_lb, diff_ub, (0, min(oh * ow, bound - 1)))
             cc = canvas(choice(ccols), (oh, ow))
             cci = asindices(cc)
-            subs = sample(cci, numred)
+            subs = sample(totuple(cci), numred)
             obj1 = {(choice(ccols), ij) for ij in cci - set(subs)}
             obj2 = {(2, ij) for ij in subs}
             obj = obj1 | obj2
@@ -6933,10 +6933,10 @@ def generate_cce03e0d(diff_lb: float, diff_ub: float) -> dict:
     ccols = sample(cols, ncols)
     gi = canvas(0, (h, w))
     inds = asindices(gi)
-    reds = sample(inds, nred)
+    reds = sample(totuple(inds), nred)
     reminds = difference(inds, reds)
     gi = fill(gi, 2, reds)
-    rest = sample(reminds, ncells)
+    rest = sample(totuple(reminds), ncells)
     rest = {(choice(ccols), ij) for ij in rest}
     gi = paint(gi, rest)
     go = canvas(0, (h**2, w**2))
@@ -9802,7 +9802,7 @@ def generate_8eb1be9a(diff_lb: float, diff_ub: float) -> dict:
     ow = unifint(diff_lb, diff_ub, (2, w))
     bounds = asindices(canvas(-1, (oh, ow)))
     ncells = unifint(diff_lb, diff_ub, (2, (oh * ow) // 3 * 2))
-    obj = normalize(frozenset(sample(bounds, ncells)))
+    obj = normalize(frozenset(sample(totuple(bounds), ncells)))
     oh, ow = shape(obj)
     bgc = choice(cols)
     remcols = remove(bgc, cols)
@@ -10221,7 +10221,7 @@ def generate_11852cab(diff_lb: float, diff_ub: float) -> dict:
             remrings = [rr for j, rr in enumerate(remrings) if j in locs]
             remringcols = [rr for j, rr in enumerate(remringcols) if j in locs]
             tofillgi = merge(frozenset(
-                recolor(col, frozenset(sample(remring, 4 - unifint(diff_lb, diff_ub, (0, 3))))) for remring, col in zip(remrings, remringcols)
+                recolor(col, frozenset(sample(totuple(remring), 4 - unifint(diff_lb, diff_ub, (0, 3))))) for remring, col in zip(remrings, remringcols)
             ))
             tofillgo = merge(frozenset(
                 recolor(col, remring) for remring, col in zip(remrings, remringcols)
@@ -10390,7 +10390,7 @@ def generate_1f0c79e5(diff_lb: float, diff_ub: float) -> dict:
         loc = choice(totuple(cands))
         plcd = shift(obj, loc)
         nred = unifint(diff_lb, diff_ub, (1, 3))
-        reds = sample(plcd, nred)
+        reds = sample(totuple(plcd), nred)
         gi = fill(gi, objc, plcd)
         gi = fill(gi, 2, reds)
         for idx in reds:
